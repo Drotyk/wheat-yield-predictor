@@ -1,0 +1,46 @@
+# === C++ build artifacts ===
+*.o
+*.obj
+*.out
+*.a
+*.so
+*.dll
+*.exe
+*.log
+
+# === Compiled binary ===
+wheat_predictor
+main
+build/
+bin/
+dist/
+
+# === Backup & temp files ===
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
+*.dSYM/
+
+# === Editor / IDE specific ===
+.vscode/
+.idea/
+*.code-workspace
+*.clangd/
+*.cache/
+*.DS_Store
+
+# === System / OS ===
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# === Make intermediate files ===
+*.d
+*.depend
+*.mk
+
+# === Git temporary ===
+.gitignore~
