@@ -8,11 +8,15 @@
 
 using namespace std;
 
+// Функція для очищення екрана термінала залежно від ОС (без використання макросів #define)
+static void clearScreen() {
 #ifdef _WIN32
-#define CLEAR "cls"
-#else 
-#define CLEAR "clear"
+    int res = system("cls");
+#else
+    int res = system("clear");
 #endif
+    (void)res;
+}
 
 // Шлях до файлу конфігурації відносно робочої директорії
 static constexpr const char* CONFIG_PATH = "data/config.json";
@@ -32,7 +36,7 @@ static int safeReadInt() {
 // Універсальний шаблон для вибору з меню
 template<typename T, typename GetNameFunc>
 int chooseFromList(const vector<T>& items, const string& title, GetNameFunc getName) {
-    (void)system(CLEAR);
+    clearScreen();
     cout << "===== " << title << " =====\n";
     for (size_t idx = 0; idx < items.size(); ++idx)
         cout << idx + 1 << ". " << getName(items[idx]) << "\n";
@@ -43,7 +47,7 @@ int chooseFromList(const vector<T>& items, const string& title, GetNameFunc getN
 
 // Вибір погодних умов для сезону
 vector<WeatherCondition> chooseWeatherSeason(const string& season, const vector<WeatherCondition>& options) {
-    (void)system(CLEAR);
+    clearScreen();
     cout << "\nОберіть погодні умови для сезону [" << season << "] (через пробіл, 0 — завершити):\n";
     for (size_t idx = 0; idx < options.size(); ++idx)
         cout << idx + 1 << ". " << options[idx].getDescription() << "\n";
@@ -102,7 +106,7 @@ int main() {
 
     // Прогноз
     WheatYieldPredictor predictor(variety, soil, fertilizer, spring, summer, autumn, winter, region);
-    (void)system(CLEAR);
+    clearScreen();
     predictor.displayPrediction();
 
     cout << "\nНатисніть Enter, щоб завершити...";
