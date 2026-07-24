@@ -1,24 +1,28 @@
 #ifndef VarietyBonus_H
 #define VarietyBonus_H
 
-#include <cstddef>
-
+/**
+ * @brief Додаткові характеристики та коефіцієнти чутливості сорту.
+ * Використовує дефолтні ініціалізатори полів для уникнення конструкторів з великою кількістю параметрів.
+ */
 struct VarietyBonus {
-    double soilBonus;
-    double weatherBonus;
-    double fertilizerBonus;
-    double regionBonus;
-    double droughtResistance;
-    double frostResistance;
-    double protein;
-    double gluten;
-    double yieldPotential;
+    double soilBonus         = 0.0;
+    double weatherBonus      = 0.0;
+    double fertilizerBonus   = 0.0;
+    double regionBonus       = 0.0;
+    double droughtResistance = 5.0;
+    double frostResistance   = 5.0;
+    double protein           = 12.0;
+    double gluten            = 25.0;
+    double yieldPotential    = 1.0;
 
-    explicit VarietyBonus(double s = 0, double w = 0, double f = 0, double r = 0,
-                          double dr = 5, double fr = 5, double p = 12, double g = 25, double y = 1.0)
+    VarietyBonus() = default;
+
+    /// Конструктор для швидкого створення з основними бонусами (≤ 6 параметрів)
+    VarietyBonus(double s, double w, double f, double r,
+                 double dr = 5.0, double fr = 5.0)
         : soilBonus(s), weatherBonus(w), fertilizerBonus(f), regionBonus(r),
-          droughtResistance(dr), frostResistance(fr),
-          protein(p), gluten(g), yieldPotential(y) {}
+          droughtResistance(dr), frostResistance(fr) {}
 };
 
-#endif 
+#endif

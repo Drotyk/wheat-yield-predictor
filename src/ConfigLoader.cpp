@@ -7,17 +7,17 @@ using json = nlohmann::json;
 // ─── Допоміжні парсери ────────────────────────────────────────────────────
 
 static VarietyBonus parseBonus(const json& j) {
-    return VarietyBonus(
-        j.value("soilBonus",        0.0),
-        j.value("weatherBonus",     0.0),
-        j.value("fertilizerBonus",  0.0),
-        j.value("regionBonus",      0.0),
-        j.value("droughtResistance",5.0),
-        j.value("frostResistance",  5.0),
-        j.value("protein",          12.0),
-        j.value("gluten",           25.0),
-        j.value("yieldPotential",   1.0)
-    );
+    VarietyBonus b;
+    b.soilBonus         = j.value("soilBonus",         0.0);
+    b.weatherBonus      = j.value("weatherBonus",      0.0);
+    b.fertilizerBonus   = j.value("fertilizerBonus",   0.0);
+    b.regionBonus       = j.value("regionBonus",       0.0);
+    b.droughtResistance = j.value("droughtResistance", 5.0);
+    b.frostResistance   = j.value("frostResistance",   5.0);
+    b.protein           = j.value("protein",          12.0);
+    b.gluten            = j.value("gluten",           25.0);
+    b.yieldPotential    = j.value("yieldPotential",    1.0);
+    return b;
 }
 
 static WheatVariety parseVariety(const json& j) {
