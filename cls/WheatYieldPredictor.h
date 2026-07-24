@@ -14,7 +14,10 @@ class WheatYieldPredictor {
     WheatVariety variety;
     SoilType soil;
     FertilizerEffect fertilizer;
-    std::vector<WeatherCondition> spring, summer, autumn, winter;
+    std::vector<WeatherCondition> spring;
+    std::vector<WeatherCondition> summer;
+    std::vector<WeatherCondition> autumn;
+    std::vector<WeatherCondition> winter;
     Region region;
 public:
     WheatYieldPredictor(WheatVariety v, SoilType s, FertilizerEffect f,
