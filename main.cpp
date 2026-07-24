@@ -17,6 +17,18 @@ using namespace std;
 // Шлях до файлу конфігурації відносно робочої директорії
 static constexpr const char* CONFIG_PATH = "data/config.json";
 
+// Безпечне зчитування цілого числа з cin.
+// При некоректному введенні (не число) очищує стан потоку і повторює запит.
+static int safeReadInt(const string& prompt = "> ") {
+    int value;
+    while (true) {
+        if (cin >> value) return value;
+        cin.clear();                        // скинути failbit
+        cin.ignore(10000, '\n');            // видалити некоректний рядок
+        cout << "[Помилка] Введіть число: ";
+    }
+}
+
 // Універсальний шаблон для вибору з меню
 template<typename T, typename GetNameFunc>
 int chooseFromList(const vector<T>& items, const string& title, GetNameFunc getName) {
@@ -25,8 +37,7 @@ int chooseFromList(const vector<T>& items, const string& title, GetNameFunc getN
     for (size_t idx = 0; idx < items.size(); ++idx)
         cout << idx + 1 << ". " << getName(items[idx]) << "\n";
     cout << "\n> ";
-    int choice;
-    cin >> choice;
+    int choice = safeReadInt();
     return max(1, min((int)items.size(), choice)) - 1;
 }
 
@@ -40,11 +51,15 @@ vector<WeatherCondition> chooseWeatherSeason(const string& season, const vector<
 
     vector<WeatherCondition> chosen;
     int index;
-    while (cin >> index && index != 0) {
+    while (true) {
+        index = safeReadInt();
+        if (index == 0) break;
         if (index >= 1 && index <= (int)options.size())
             chosen.push_back(options[index - 1]);
+        else
+            cout << "[Помилка] Невірний номер. Введіть від 1 до " << options.size() << " або 0 для завершення: ";
     }
-    cin.clear(); cin.ignore(10000, '\n');
+    cin.ignore(10000, '\n');
     return chosen;
 }
 
