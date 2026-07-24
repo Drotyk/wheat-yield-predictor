@@ -21,7 +21,7 @@ double WheatYieldPredictor::averageImpact(const std::vector<WeatherCondition>& v
     return sum / v.size();
 }
 
-double WheatYieldPredictor::calculateYield() {
+double WheatYieldPredictor::calculateYield() const {
     double Y = variety.getAvgYield();
     VarietyBonus b = variety.getBonus();
 
@@ -62,7 +62,7 @@ double WheatYieldPredictor::calculateYield() {
     return result;
 }
 
-void WheatYieldPredictor::displayPrediction() {
+void WheatYieldPredictor::displayPrediction() const {
     VarietyBonus b = variety.getBonus();
     std::cout << "\n===== ПРОГНОЗ ВРОЖАЙНОСТІ =====\n";
     std::cout << "Сорт: " << variety.getName() << " (" << variety.getSpecies() << ")\n";

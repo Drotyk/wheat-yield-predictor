@@ -25,8 +25,8 @@ public:
                         std::vector<WeatherCondition> au, std::vector<WeatherCondition> wi,
                         Region r);
     static double averageImpact(const std::vector<WeatherCondition>& v);
-    double calculateYield();
-    void displayPrediction();
+    double calculateYield() const;
+    void displayPrediction() const;
 };
 
 #endif
