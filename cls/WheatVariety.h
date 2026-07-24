@@ -15,7 +15,7 @@ class WheatVariety {
     VarietyBonus bonus;
 public:
     WheatVariety(std::string n, std::string type, double minY, double avgY, double maxY,
-                 bool resistant, std::string s, VarietyBonus b);
+                 bool resistant, std::string s, const VarietyBonus& b = VarietyBonus());
     std::string getName() const;
     std::string getSowingType() const;
     std::string getSpecies() const;
@@ -23,7 +23,7 @@ public:
     double getAvgYield() const;
     double getMaxYield() const;
     bool isResistant() const;
-    VarietyBonus getBonus() const;
+    const VarietyBonus& getBonus() const;
     void setResistant(bool r);
 };
 
