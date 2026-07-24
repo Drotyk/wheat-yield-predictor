@@ -19,7 +19,7 @@ static constexpr const char* CONFIG_PATH = "data/config.json";
 
 // Безпечне зчитування цілого числа з cin.
 // При некоректному введенні (не число) очищує стан потоку і повторює запит.
-static int safeReadInt(const string& prompt = "> ") {
+static int safeReadInt() {
     int value;
     while (true) {
         if (cin >> value) return value;

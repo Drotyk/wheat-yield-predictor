@@ -1,9 +1,10 @@
 CXX      := g++
-CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -Icls
+CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -Icls -MMD -MP
 LDFLAGS  :=
 
 SRC    := $(wildcard src/*.cpp)
 OBJ    := $(SRC:.cpp=.o)
+DEPS   := $(OBJ:.o=.d)
 MAIN   ?= main.cpp
 TARGET := wheat_predictor
 
@@ -24,6 +25,9 @@ test: $(OBJ) $(TESTS_SRC)
 
 # Очищення
 clean:
-	rm -f $(OBJ) $(TARGET) $(TEST_TARGET)
+	rm -f $(OBJ) $(DEPS) $(TARGET) $(TEST_TARGET)
+
+# Підключення автоматично згенерованих файлів залежностей
+-include $(DEPS)
 
 .PHONY: all test clean

@@ -64,6 +64,32 @@ static json readJson(const std::string& path) {
     return root;
 }
 
+// ─── Валідація завантаженого конфігу ─────────────────────────────────
+
+static void validate(const AppConfig& cfg) {
+    // Перевірка на порожні списки
+    if (cfg.varieties.empty())
+        throw std::runtime_error("Конфіг: список \"varieties\" порожній");
+    if (cfg.soils.empty())
+        throw std::runtime_error("Конфіг: список \"soils\" порожній");
+    if (cfg.fertilizers.empty())
+        throw std::runtime_error("Конфіг: список \"fertilizers\" порожній");
+    if (cfg.regions.empty())
+        throw std::runtime_error("Конфіг: список \"regions\" порожній");
+    if (cfg.weather.empty())
+        throw std::runtime_error("Конфіг: список \"weather\" порожній");
+
+    // Перевірка меж врожайності для кожного сорту
+    for (const auto& v : cfg.varieties) {
+        if (v.getMinYield() < 0.0)
+            throw std::runtime_error("Сорт \"" + v.getName() + "\": minYield не може бути від'ємним");
+        if (v.getMinYield() > v.getMaxYield())
+            throw std::runtime_error("Сорт \"" + v.getName() + "\": minYield > maxYield");
+        if (v.getAvgYield() < v.getMinYield() || v.getAvgYield() > v.getMaxYield())
+            throw std::runtime_error("Сорт \"" + v.getName() + "\": avgYield повинен бути між minYield і maxYield");
+    }
+}
+
 // ─── Публічні методи ConfigLoader ────────────────────────────────────────
 
 AppConfig ConfigLoader::loadAll(const std::string& path) {
@@ -76,6 +102,7 @@ AppConfig ConfigLoader::loadAll(const std::string& path) {
     for (const auto& r : root.at("regions"))      cfg.regions.push_back(parseRegion(r));
     for (const auto& w : root.at("weather"))      cfg.weather.push_back(parseWeather(w));
 
+    validate(cfg); // перевірка порожніх списків та коректності меж урожайності
     return cfg;
 }
 
