@@ -10,6 +10,17 @@
 #include "WeatherCondition.h"
 #include "Region.h"
 
+/**
+ * @brief Спеціалізований клас виключення для помилок завантаження та валідації конфігурації.
+ */
+class ConfigException : public std::runtime_error {
+public:
+    explicit ConfigException(const std::string& message)
+        : std::runtime_error(message) {}
+    explicit ConfigException(const char* message)
+        : std::runtime_error(message) {}
+};
+
 /// Агрегована структура, що містить усі дані, завантажені з конфіг-файлу.
 struct AppConfig {
     std::vector<WheatVariety>     varieties;
@@ -23,7 +34,7 @@ struct AppConfig {
  * @brief Статичний завантажувач конфігурації з JSON-файлу.
  *
  * Використовує бібліотеку nlohmann/json (header-only).
- * Якщо файл не знайдено або JSON некоректний — кидає std::runtime_error.
+ * Якщо файл не знайдено або JSON некоректний — кидає ConfigException.
  */
 class ConfigLoader {
 public:

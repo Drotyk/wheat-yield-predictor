@@ -54,12 +54,12 @@ static WeatherCondition parseWeather(const json& j) {
 static json readJson(const std::string& path) {
     std::ifstream file(path);
     if (!file.is_open())
-        throw std::runtime_error("Не вдалося відкрити файл конфігурації: " + path);
+        throw ConfigException("Не вдалося відкрити файл конфігурації: " + path);
     json root;
     try {
         file >> root;
     } catch (const json::parse_error& e) {
-        throw std::runtime_error(std::string("Помилка парсингу JSON: ") + e.what());
+        throw ConfigException(std::string("Помилка парсингу JSON: ") + e.what());
     }
     return root;
 }
@@ -69,24 +69,24 @@ static json readJson(const std::string& path) {
 static void validate(const AppConfig& cfg) {
     // Перевірка на порожні списки
     if (cfg.varieties.empty())
-        throw std::runtime_error("Конфіг: список \"varieties\" порожній");
+        throw ConfigException("Конфіг: список \"varieties\" порожній");
     if (cfg.soils.empty())
-        throw std::runtime_error("Конфіг: список \"soils\" порожній");
+        throw ConfigException("Конфіг: список \"soils\" порожній");
     if (cfg.fertilizers.empty())
-        throw std::runtime_error("Конфіг: список \"fertilizers\" порожній");
+        throw ConfigException("Конфіг: список \"fertilizers\" порожній");
     if (cfg.regions.empty())
-        throw std::runtime_error("Конфіг: список \"regions\" порожній");
+        throw ConfigException("Конфіг: список \"regions\" порожній");
     if (cfg.weather.empty())
-        throw std::runtime_error("Конфіг: список \"weather\" порожній");
+        throw ConfigException("Конфіг: список \"weather\" порожній");
 
     // Перевірка меж врожайності для кожного сорту
     for (const auto& v : cfg.varieties) {
         if (v.getMinYield() < 0.0)
-            throw std::runtime_error("Сорт \"" + v.getName() + "\": minYield не може бути від'ємним");
+            throw ConfigException("Сорт \"" + v.getName() + "\": minYield не може бути від'ємним");
         if (v.getMinYield() > v.getMaxYield())
-            throw std::runtime_error("Сорт \"" + v.getName() + "\": minYield > maxYield");
+            throw ConfigException("Сорт \"" + v.getName() + "\": minYield > maxYield");
         if (v.getAvgYield() < v.getMinYield() || v.getAvgYield() > v.getMaxYield())
-            throw std::runtime_error("Сорт \"" + v.getName() + "\": avgYield повинен бути між minYield і maxYield");
+            throw ConfigException("Сорт \"" + v.getName() + "\": avgYield повинен бути між minYield і maxYield");
     }
 }
 

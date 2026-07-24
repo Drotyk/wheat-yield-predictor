@@ -133,8 +133,8 @@ TEST_CASE("ConfigCounts: конфіг містить очікувану кіль
     REQUIRE(cfg.weather.size()     == 6);
 }
 
-TEST_CASE("ConfigLoad: неіснуючий файл кидає runtime_error", "[config]") {
-    REQUIRE_THROWS_AS(ConfigLoader::loadAll("data/nonexistent.json"), std::runtime_error);
+TEST_CASE("ConfigLoad: неіснуючий файл кидає ConfigException", "[config]") {
+    REQUIRE_THROWS_AS(ConfigLoader::loadAll("data/nonexistent.json"), ConfigException);
 }
 
 TEST_CASE("ConfigValidation: minYield > maxYield кидає runtime_error", "[config][validation]") {
