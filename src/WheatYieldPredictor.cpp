@@ -11,10 +11,13 @@ WheatYieldPredictor::WheatYieldPredictor(WheatVariety v, SoilType s, FertilizerE
       region(std::move(r)) {}
 
 double WheatYieldPredictor::averageImpact(const std::vector<WeatherCondition>& v) {
-    if (v.empty()) 
-    return 0.0;
+    if (v.empty()) {
+        return 0.0;
+    }
     double sum = 0.0;
-    for (const auto& w : v) sum += w.getImpact();
+    for (const auto& w : v) {
+        sum += w.getImpact();
+    }
     return sum / v.size();
 }
 
