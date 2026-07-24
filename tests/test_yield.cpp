@@ -19,7 +19,7 @@ using Catch::Approx;
  * Для тестів clamping передаємо явний вузький max.
  */
 static WheatVariety makeVariety(double minY = 0.0, double avgY = 6.0, double maxY = 100.0,
-                                bool resistant = false, VarietyBonus bonus = VarietyBonus()) {
+                                bool resistant = false, const VarietyBonus& bonus = VarietyBonus()) {
     return WheatVariety("Тест", "озима", minY, avgY, maxY, resistant, "м'яка", bonus);
 }
 
@@ -41,9 +41,9 @@ static std::vector<WeatherCondition> dry()       { return { WeatherCondition("с
 
 // ─── Хелпер для швидкого розрахунку ─────────────────────────────────────
 
-static double calcYield(WheatVariety v, SoilType s, FertilizerEffect f,
-                        std::vector<WeatherCondition> w = {},
-                        Region r = Region("Нейтральний", 0.0)) {
+static double calcYield(const WheatVariety& v, const SoilType& s, const FertilizerEffect& f,
+                        const std::vector<WeatherCondition>& w = {},
+                        const Region& r = Region("Нейтральний", 0.0)) {
     WheatYieldPredictor p(v, s, f, w, w, w, w, r);
     return p.calculateYield();
 }
