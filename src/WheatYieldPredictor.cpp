@@ -22,20 +22,38 @@ double WheatYieldPredictor::calculateYield() {
     double Y = variety.getAvgYield();
     VarietyBonus b = variety.getBonus();
 
-    double Fsoil = soil.getFactor();
-    double Ffert = 1.0 + fertilizer.getIncrease() / 100.0;
-    double Fregion = 1.0 + region.getFactor() / 100.0;
+    // --- Базові коефіцієнти ------------------------------------------------
+    double Fsoil   = soil.getFactor();
+    double fertInc = fertilizer.getIncrease(); // відсоток
+    double Ffert   = 1.0 + fertInc / 100.0;
+    double regionF = region.getFactor();        // відсоток (може бути від'ємним)
+    double Fregion = 1.0 + regionF / 100.0;
 
     double weatherImpact = (averageImpact(spring) + averageImpact(summer) +
                             averageImpact(autumn) + averageImpact(winter)) / 4.0;
     double Fweather = 1.0 + weatherImpact / 100.0;
 
-    // Very small variety factor as in the user's original formula
+    // Стійкість сорту до посухи і морозу
     double Fvariety = 1.0 + ((b.droughtResistance + b.frostResistance) / 20.0) / 100.0;
 
+    // --- Бонуси сорту: підсилюють чутливість до кожного фактора -----------
+    // soilBonus    — % підсилення приросту/спаду від ґрунту
+    // weatherBonus — % підсилення середнього погодного впливу
+    // fertBonus    — % підсилення приросту від добрив
+    // regionBonus  — % підсилення регіонального фактора
+    double soilEffect    = (Fsoil - 1.0) * b.soilBonus / 100.0;        // Δ від ґрунту × чутливість
+    double weatherEffect = (weatherImpact / 100.0) * b.weatherBonus / 100.0;
+    double fertEffect    = (fertInc / 100.0) * b.fertilizerBonus / 100.0;
+    double regionEffect  = (regionF / 100.0) * b.regionBonus / 100.0;
+    double Fbonus        = 1.0 + soilEffect + weatherEffect + fertEffect + regionEffect;
+
+    // yieldPotential — генетичний потенціал сорту (масштабувальний коефіцієнт)
+    double Fpotential = b.yieldPotential;
+
+    // Бонус стійкості до гербіцидів
     double delta = variety.isResistant() ? (0.05 * Y) : 0.0;
 
-    double result = Y * Fsoil * Ffert * Fregion * Fweather * Fvariety + delta;
+    double result = Y * Fsoil * Ffert * Fregion * Fweather * Fvariety * Fbonus * Fpotential + delta;
     result = std::min(result, variety.getMaxYield());
     result = std::max(result, variety.getMinYield());
     return result;

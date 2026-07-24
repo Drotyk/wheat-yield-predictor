@@ -1,0 +1,91 @@
+{
+  "varieties": [
+    {
+      "name": "Подолянка",
+      "sowingType": "озима",
+      "species": "м'яка",
+      "minYield": 4.0,
+      "avgYield": 6.0,
+      "maxYield": 9.0,
+      "herbicideResistant": true,
+      "bonus": {
+        "soilBonus": 0.3,
+        "weatherBonus": 0.4,
+        "fertilizerBonus": 0.2,
+        "regionBonus": 0.3,
+        "droughtResistance": 5.0,
+        "frostResistance": 5.0,
+        "protein": 12.0,
+        "gluten": 25.0,
+        "yieldPotential": 1.00
+      }
+    },
+    {
+      "name": "Краєвид",
+      "sowingType": "яра",
+      "species": "тверда",
+      "minYield": 3.5,
+      "avgYield": 5.5,
+      "maxYield": 8.5,
+      "herbicideResistant": false,
+      "bonus": {
+        "soilBonus": 0.5,
+        "weatherBonus": 0.3,
+        "fertilizerBonus": 0.5,
+        "regionBonus": 0.2,
+        "droughtResistance": 6.0,
+        "frostResistance": 6.0,
+        "protein": 13.0,
+        "gluten": 27.0,
+        "yieldPotential": 1.02
+      }
+    },
+    {
+      "name": "Скаген",
+      "sowingType": "озима",
+      "species": "м'яка",
+      "minYield": 4.2,
+      "avgYield": 6.5,
+      "maxYield": 9.5,
+      "herbicideResistant": true,
+      "bonus": {
+        "soilBonus": 0.4,
+        "weatherBonus": 0.6,
+        "fertilizerBonus": 0.4,
+        "regionBonus": 0.4,
+        "droughtResistance": 7.0,
+        "frostResistance": 7.0,
+        "protein": 14.0,
+        "gluten": 28.0,
+        "yieldPotential": 1.05
+      }
+    }
+  ],
+  "soils": [
+    { "name": "Чорнозем", "factor": 1.10 },
+    { "name": "Суглинок",  "factor": 0.95 },
+    { "name": "Піщаний",   "factor": 0.85 },
+    { "name": "Лучний",    "factor": 1.00 }
+  ],
+  "fertilizers": [
+    { "name": "Без добрив",   "increase": 0.0  },
+    { "name": "NPK 16-16-16", "increase": 8.0  },
+    { "name": "Амофос",       "increase": 5.0  },
+    { "name": "Карбамід",     "increase": 10.0 }
+  ],
+  "regions": [
+    { "name": "Полісся",        "factor": -1.0 },
+    { "name": "Лісостеп",      "factor":  1.5 },
+    { "name": "Степ",           "factor":  2.0 },
+    { "name": "Південний степ", "factor": -2.0 },
+    { "name": "Карпати",        "factor": -1.5 }
+  ],
+  "weather": [
+    { "description": "дощова",   "impact":  2.5 },
+    { "description": "спекотна", "impact": -3.0 },
+    { "description": "помірна",  "impact":  1.0 },
+    { "description": "суха",     "impact": -2.0 },
+    { "description": "м'яка",    "impact":  1.5 },
+    { "description": "вітряна",  "impact": -1.5 }
+  ]
+}
