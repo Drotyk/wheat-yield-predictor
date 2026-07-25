@@ -1,6 +1,11 @@
 # Wheat Yield Predictor (Прогнозатор урожайності пшениці)
 
 [![CI](https://github.com/Drotyk/wheat-yield-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/Drotyk/wheat-yield-predictor/actions/workflows/ci.yml)
+![C++17](https://img.shields.io/badge/C%2B%2B-17-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)
+![GNU Make](https://img.shields.io/badge/Make-GNU-00599C?style=flat-square&logo=gnu&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-nlohmann-000000?style=flat-square&logo=json&logoColor=white)
+![Catch2](https://img.shields.io/badge/Tests-Catch2_v3-2088FF?style=flat-square&logo=c%2B%2B&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 Цей проєкт являє собою консольну програму на C++ (стандарт C++17) для прогнозування врожайності пшениці на основі різних агрономічних, ґрунтово-кліматичних та погодних факторів.
 
